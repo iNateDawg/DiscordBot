@@ -1,0 +1,18 @@
+{
+	"extends": "eslint:recommended",
+	"env": {
+		"node": true,
+		"es6": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2021
+	},
+	"rules": {
+		"indent": [1, 4],
+		"arrow-spacing": ["warn", { "before": true, "after": true }],
+		"arrow-body-style": ["error", "always"],
+		"curly": ["error", "multi"]
+	}
+}
+	i
+    
