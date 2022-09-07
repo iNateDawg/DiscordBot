@@ -14,7 +14,7 @@ const client = new Client({
 
 client.commands = new Collection();
 
-const commandsPath = path.join(__dirname, 'src/commands');
+const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => { file.endsWith('.js') });
 
 for (const file of commandFiles) {
@@ -27,7 +27,6 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isChatInputCommand()) {
 		return;
 	}
-	console.log("test1")
 	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
@@ -43,6 +42,5 @@ client.on('interactionCreate', async interaction => {
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
-
 
 client.login(token);
