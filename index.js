@@ -1,34 +1,48 @@
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const fs = require('node:fs');
+const path = require('node:path');
+const { token } = require('./config.json');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMembers,
+	]
+	
+});
 
 client.commands = new Collection();
-const commandsPath = join(__dirname, 'commands');
-const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+const commandsPath = path.join(__dirname, 'src/commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => { file.endsWith('.js') });
 
 for (const file of commandFiles) {
-	const filePath = join(commandsPath, file);
-	const command = require(filePath);
-	// Set a new item in the Collection
-	// With the key as the command name and the value as the exported module
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath)
 	client.commands.set(command.data.name, command);
 }
 
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isChatInputCommand()) return;
-
+	if (!interaction.isChatInputCommand()) {
+		return;
+	}
+	console.log("test1")
 	const command = interaction.client.commands.get(interaction.commandName);
 
-	if (!command) return;
+	if (!command) {
+		return;
+	}
 
 	try {
+		console.log("poop")
 		await command.execute(interaction);
-	} catch (error) {
+	}
+	catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
+
 
 client.login(token);

@@ -5,11 +5,23 @@
   "main": "index.js",
   "author": "nate mcfarland",
   "license": "MIT",
-  "type": "module",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node deploy-commands.js && node .",
+    "deploy": "node deploy-commands.js",
+    "lint": "eslint ./"
+  },
   "dependencies": {
     "@discordjs/rest": "^1.1.0",
+    "@r6stats/node": "^4.0.0-alpha3",
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "discord.js": "^14.3.0",
     "dotenv": "^16.0.2",
-    "eslint": "^8.23.0"
-  }
+    "eslint": "^8.23.0",
+    "express": "^4.18.1",
+    "winston": "^3.8.1"
+  },
+  "include": [
+    "src"
+  ]
 }

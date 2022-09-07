@@ -1,29 +1,22 @@
-const { Client, GatewayIntentBits } = require('discord.js');
-
 const insults = [
-    ", go fuck yourself.",
-    ", eat a dick.",
-    ", "
+	", go fuck yourself.",
+	", eat a dick.",
+	", "
 ]
 
 const openingText = [
-    "Hello, ",
-    "Welcome, ",
-    "Oh god, it's "
+	"Hello, ",
+	"Welcome, ",
+	"Oh god, it's ",
 ]
 
 const getUsername = () => {
-
-    client.on('guildMemberAdd', interaction => {
-        return replyWithInsult()
-    });
-
+	return "peepee"
 }
 
-export default replyWithInsult = (interaction) => {
-    const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-    const opener = openingText[Math.random() * openingText.length | 0] 
-    const insult = insults[Math.random() * insults.length | 0]
+export const replyWithInsult = () => {
+	const opener = openingText[Math.random() * openingText.length | 0]
+	const insult = insults[Math.random() * insults.length | 0]
 
-    return opener + getUsername()
+	return (opener, getUsername(), insult);
 }
