@@ -1,26 +1,32 @@
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const fs = require('node:fs');
-const path = require('node:path');
-const { token } = require('./config.json');
+import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import fs from 'fs';
+import path from 'path';
+import id from './config.json' assert {type: 'json'}
+import url from 'url'
 
 const client = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.GuildMembers,
-	]
-	
+	],
+	partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER']
+
+
 });
 
 client.commands = new Collection();
 
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => { file.endsWith('.js') });
+const commandsPath = path.join(process.cwd(), '/commands');
+const commandFiles = fs.readdirSync(commandsPath)
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
-	const command = require(filePath)
-	client.commands.set(command.data.name, command);
+	const command = await import(url.pathToFileURL(filePath))
+	const commandData = JSON.stringify(command.data)
+	
+	console.log(command.default.data)
+	client.commands.set(command.default.data.name, command);
 }
 
 client.on('interactionCreate', async interaction => {
@@ -43,4 +49,4 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.login(token);
+client.login(id.token);

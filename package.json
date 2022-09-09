@@ -5,13 +5,15 @@
   "main": "index.js",
   "author": "nate mcfarland",
   "license": "MIT",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "start": "node . && node deploy-commands.js ",
+    "start": "node . ",
     "deploy": "node deploy-commands.js",
     "lint": "eslint ./"
   },
   "dependencies": {
+    "@babel/core": "^7.19.0",
+    "@babel/eslint-parser": "^7.18.9",
     "@discordjs/rest": "^1.1.0",
     "@r6stats/node": "^4.0.0-alpha3",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",

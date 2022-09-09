@@ -1,36 +1,41 @@
 
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord.js');
-const { clientId, token } = require('./config.json');
-const fs = require('node:fs');
-const path = require('node:path');
+import { REST } from '@discordjs/rest';
+import { Routes } from 'discord.js';
+import id from './config.json'assert {type: 'json'};
+import fs from 'fs';
+import path from 'path';
+import url from 'url';
 
 const commands = [];
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => { file.endsWith('.js') });
+const commandsPath = path.join(process.cwd(), '/commands');
+const commandFiles = fs.readdirSync(commandsPath)
+console.log(commandFiles)
 
 for (const file of commandFiles) {
-	
 	const filePath = path.join(commandsPath, file);
-	const command = require(filePath);
-	commands.push(command.data.toJSON());
+	const command = await import(url.pathToFileURL(filePath))
+	commands.push(command.default.data.toJSON());
 }
 
-console.log(commands)
 
-const rest = new REST({ version: '10' }).setToken(token);
+const rest = new REST({ version: '10' }).setToken(id.token);
 
-(async () => {
-	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+// (async () => {
+// 	try {
+// 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
-		const data = await rest.put(
-			Routes.applicationCommands(clientId),
-			{ body: commands },
-		);
+// 		const data = await rest.put(
+// 			Routes.applicationCommands(clientId),
+// 			{ body: commands },
+// 		);
 
-		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-	} catch (error) {
-		console.error(error);
-	}
-})();
+// 		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+// 	} catch (error) {
+// 		console.error(error);
+// 	}
+// })();
+
+
+	rest.put(Routes.applicationCommands(id.clientId), { body: commands })
+		.then((data) => { console.log(`Successfully registered ${data.length} application commands.`) })
+		.catch(console.error);
