@@ -7,13 +7,15 @@
 	},
 	"parserOptions": {
 		"ecmaVersion": 2021,
-		"sourceType": "module",
 		"type": "commonjs"
 	},
 	"rules": {
-		"indent": ["warn", "tab"],
-		
+		"indent": [
+			"warn",
+			"tab"
+		]
+	},
+	"eslint.workingDirectories": {
+		"mode": "auto"
 	}
 }
-	
-    
