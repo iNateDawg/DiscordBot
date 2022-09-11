@@ -1,0 +1,18 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "yarn start",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}\\index.js",
+			"args": ["-t", "MTAxNjA0MTkwNzk5NjA3NDE0NQ.Gzybv7.NJg4SJcJyYxWcbp9bCKpBiYb2EmPoZxsPit5oM", "-i", "1016041907996074145"]
+		}
+	]
+}

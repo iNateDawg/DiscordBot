@@ -1,21 +1,18 @@
 {
 	"extends": "eslint:recommended",
-	"parser": "@babel/eslint-parser",
 	"env": {
 		"node": true,
 		"es6": true
 	},
 	"parserOptions": {
 		"ecmaVersion": 2021,
-		"type": "commonjs"
+		"type": "commonjs",
+		"sourceType": "module"
 	},
 	"rules": {
 		"indent": [
 			"warn",
 			"tab"
 		]
-	},
-	"eslint.workingDirectories": {
-		"mode": "auto"
 	}
 }

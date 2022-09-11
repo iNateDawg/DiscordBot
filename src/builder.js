@@ -1,10 +1,8 @@
 
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import { Collection } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 import url from 'url'
-
-client.commands = new Collection();
 
 const getFiles = (filePath) => {
 	const filesPath = path.join(process.cwd(), filePath);
@@ -14,23 +12,19 @@ const getFiles = (filePath) => {
 }
 
 const buildEvents = async (client) => {
+	client.commands = new Collection();
 
-	const events = getFiles("/events")
+	const events = getFiles("src/events")
 
-	for (const file of events.botfiles) {
+	for (const file of events.botFiles) {
 
 		const filePath = path.join(events.filesPath, file);
 		const event = await import(url.pathToFileURL(filePath))
 		console.log(event)
-		if (type === "c") {
-			client.commands.set(event.data.name, event);
-		}
-		else if (type === "e") {
-			if (event.once) {
-				client.once(event.name, (...args) => event.run(...args));
-			} else {
-				client.on(event.name, (...args) => event.run(...args));
-			}
+		if (event.once) {
+			client.once(event.name, (...args) => event.run(...args));
+		} else {
+			client.on(event.name, (...args) => event.run(...args));
 		}
 	}
 
@@ -41,7 +35,7 @@ const buildCommands = async (client) => {
 
 	client.commands = new Collection();
 
-	const commands = getFiles('/commands')
+	const commands = getFiles('src/commands')
 
 	for (const file of commands.botFiles) {
 
@@ -55,9 +49,9 @@ const buildCommands = async (client) => {
 }
 
 const build = async (client) => {
-	const newClient = buildCommands(client)
-	newClient = buildEvents(client)
+	let newClient = buildCommands(client)
+	newClient = buildEvents(newClient)
 	return newClient
 }
 
-export default { build }
+export default build

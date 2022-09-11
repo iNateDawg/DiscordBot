@@ -4,7 +4,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
-	run: () => { interaction.reply('Pong!') }
+	run: (interaction) => { interaction.reply('Pong!') }
 };
 
 

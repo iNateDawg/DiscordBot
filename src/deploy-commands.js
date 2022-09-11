@@ -4,11 +4,10 @@ import { Routes } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 import url from 'url';
-import dotenv from 'dotenv';
 
 const deployCommands = async ( token, clientId ) => {
 	const commands = [];
-	const commandsPath = path.join(process.cwd(), '/commands');
+	const commandsPath = path.join(process.cwd(), 'src/commands');
 	const commandFiles = fs.readdirSync(commandsPath)
 	console.log(commandFiles)
 

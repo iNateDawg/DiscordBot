@@ -7,7 +7,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node . ",
+    "start": "node . -t MTAxNjA0MTkwNzk5NjA3NDE0NQ.GBrAYD.U0YFeCkKRHI79CJjSpMatRIuaRP0Hq5VhsyqBM -i 1016041907996074145",
     "deploy": "node deploy-commands.js",
     "lint": "eslint ./"
   },

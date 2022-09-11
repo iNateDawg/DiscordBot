@@ -1,9 +1,7 @@
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import http from 'http';
-import { build } from 'builder'
-import deployCommands from './deploy-commands';
+import { Client, GatewayIntentBits } from 'discord.js';
+import  build  from './builder.js'
+import deployCommands from './deploy-commands.js';
 
-http.createServer((req, res) => res.end('Bot is alive!')).listen(3000)
 
 const botStart = (token, clientId, deploy) => {
 
@@ -23,6 +21,9 @@ const botStart = (token, clientId, deploy) => {
 	}
 
 	build(client)
-
+	
+	console.log(token)
 	client.login(process.env.DISCORD_TOKEN);
 }
+
+export default botStart
